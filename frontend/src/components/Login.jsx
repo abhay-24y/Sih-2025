@@ -1,8 +1,42 @@
 import React from "react";
 import { Mail, Lock, Clock, Calendar, Shield } from "lucide-react";
 import { Link } from "react-router";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(""); // reset error
+
+    try {
+      const res = await fetch("http://localhost:3000/api/user/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include", // ✅ important for cookies
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("login successfully");
+        navigate("/");
+      } else {
+        alert(data.error || data.message || "Login failed");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Something went wrong. Try again later.");
+    }
+  };
+
+
   return (
     <div className="min-h-screen flex">
       {/* Left Section */}
@@ -56,13 +90,16 @@ const Login = () => {
           </div>
 
           {/* Form */}
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={handleSubmit}>
             <div className="flex items-center bg-gray-900 border border-gray-700 rounded-md px-4">
               <Mail className="text-gray-500 w-5 h-5 mr-2" />
               <input
                 type="email"
                 placeholder="Enter your email"
                 className="w-full py-3 bg-transparent focus:outline-none text-white"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
 
@@ -72,6 +109,9 @@ const Login = () => {
                 type="password"
                 placeholder="Enter your password"
                 className="w-full py-3 bg-transparent focus:outline-none text-white"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </div>
 
