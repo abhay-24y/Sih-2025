@@ -1,7 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { User, Mail, Lock, Phone } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+
+
 const Signup = () => {
+  // 🆕 states banaye har input ke liye
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  // 🆕 handleSignup function banaya
+  async function handleSignup(e) {
+    e.preventDefault(); // form reload na ho
+    try {
+      const res = await fetch("http://localhost:3000/api/user/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: fullName,
+          email,
+          phone,
+          password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert(data.message); // success msg from backend
+        navigate("/login"); // redirect to landing page
+      } else {
+        alert(data.error || data.message || "Signup failed"); // error msg properly
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Something went wrong");
+    }
+  }
+
   return (
     <div className="min-h-screen flex">
       {/* Left Section */}
@@ -61,12 +100,14 @@ const Signup = () => {
           </div>
 
           {/* Form */}
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={handleSignup}>
             <div className="flex items-center bg-gray-900 border border-gray-700 rounded-md px-4">
               <User className="text-gray-500 w-5 h-5 mr-2" />
               <input
                 type="text"
                 placeholder="Enter your full name"
+                value={fullName} // 🆕 state se bind kiya
+                onChange={(e) => setFullName(e.target.value)} // 🆕 update karna
                 className="w-full py-3 bg-transparent focus:outline-none text-white"
               />
             </div>
@@ -76,6 +117,8 @@ const Signup = () => {
               <input
                 type="email"
                 placeholder="Enter your email"
+                value={email} // 🆕
+                onChange={(e) => setEmail(e.target.value)} // 🆕
                 className="w-full py-3 bg-transparent focus:outline-none text-white"
               />
             </div>
@@ -85,6 +128,8 @@ const Signup = () => {
               <input
                 type="tel"
                 placeholder="Phone number"
+                value={phone} // 🆕
+                onChange={(e) => setPhone(e.target.value)} // 🆕
                 className="w-full py-3 bg-transparent focus:outline-none text-white"
               />
             </div>
@@ -94,11 +139,16 @@ const Signup = () => {
               <input
                 type="password"
                 placeholder="Choose a strong password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full py-3 bg-transparent focus:outline-none text-white"
               />
             </div>
 
-            <button className="w-full bg-blue-600 py-3 rounded-md font-medium hover:bg-blue-700 transition">
+            <button
+              type="submit"
+              className="w-full bg-blue-600 py-3 rounded-md font-medium hover:bg-blue-700 transition"
+            >
               Create Account
             </button>
           </form>
