@@ -5,9 +5,13 @@ import App from "./App.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import HomeLayout from "./components/HomeLayout.jsx";
-import Login from "./components/Login.jsx";
-import Signup from "./components/Signup.jsx";
-import Timetable from "./components/Timetable.jsx";
+import LoginLayout from "./components/LoginLayout.jsx";
+import SignupLayout from "./components/SignupLayout.jsx";
+import Timetable from "./components/Dashboard.jsx";
+import Dashboard from "./components/Dashboard.jsx";
+import AddClassroomLayout from "./components/AddClassroomLayout.jsx";
+import AddTeacherLayout from "./components/AddTeacherLayout.jsx";
+import ShowTeachers from "./components/ShowTeachers.jsx";
 let router = createBrowserRouter([
   {
     path: "/",
@@ -19,15 +23,27 @@ let router = createBrowserRouter([
       },
       {
         path: "login",
-        element: <Login />,
+        element: <LoginLayout />,
       },
       {
         path: "signup",
-        element: <Signup />,
+        element: <SignupLayout />,
       },
       {
         path: "timetable",
-        element: <Timetable />,
+        element: <Dashboard />,
+      },
+      {
+        path: "addclassroom",
+        element: <AddClassroomLayout />,
+      },
+      {
+        path: "addteachers",
+        element: <AddTeacherLayout />,
+      },
+      {
+        path: "showteachers",
+        element: <ShowTeachers />,
       },
     ],
   },

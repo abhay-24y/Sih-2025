@@ -1,12 +1,19 @@
-import React from "react";
-import { Mail, Lock, Clock, Calendar, Shield } from "lucide-react";
-import { Link } from "react-router";
-import { useState } from "react";
+import React, { useState } from "react";
+import {
+  Mail,
+  Lock,
+  Clock,
+  Calendar,
+  Shield,
+  Building2,
+  ChevronDown,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [department, setDepartment] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -19,13 +26,13 @@ const Login = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include", // ✅ important for cookies
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, department }),
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        alert("login successfully");
+        alert("Login successfully");
         navigate("/");
       } else {
         alert(data.error || data.message || "Login failed");
@@ -35,7 +42,6 @@ const Login = () => {
       setError("Something went wrong. Try again later.");
     }
   };
-
 
   return (
     <div className="min-h-screen flex">
@@ -66,8 +72,8 @@ const Login = () => {
 
       {/* Right Section (Form) */}
       <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-[#0A1120] via-[#111827] to-[#0A1120]">
-        <div className="bg-[#111827] p-10 rounded-2xl shadow-xl w-full max-w-md">
-          <h2 className="text-2xl font-semibold mb-6 text-white">
+        <div className="bg-[#111827] p-10 rounded-2xl shadow-2xl w-full max-w-md border border-gray-800">
+          <h2 className="text-2xl font-semibold mb-6 text-white text-center">
             Log In to Your Account
           </h2>
 
@@ -81,6 +87,7 @@ const Login = () => {
             Continue with Google
           </button>
 
+          {/* Divider */}
           <div className="flex items-center my-6">
             <div className="flex-grow h-px bg-gray-700"></div>
             <span className="mx-4 text-gray-400 text-sm">
@@ -91,6 +98,7 @@ const Login = () => {
 
           {/* Form */}
           <form className="space-y-5" onSubmit={handleSubmit}>
+            {/* Email */}
             <div className="flex items-center bg-gray-900 border border-gray-700 rounded-md px-4">
               <Mail className="text-gray-500 w-5 h-5 mr-2" />
               <input
@@ -103,6 +111,7 @@ const Login = () => {
               />
             </div>
 
+            {/* Password */}
             <div className="flex items-center bg-gray-900 border border-gray-700 rounded-md px-4">
               <Lock className="text-gray-500 w-5 h-5 mr-2" />
               <input
@@ -115,13 +124,59 @@ const Login = () => {
               />
             </div>
 
-            <button className="w-full bg-blue-600 py-3 rounded-md font-medium hover:bg-blue-700 transition">
+            {/* Department Dropdown */}
+            <div className="relative">
+              <div className="flex items-center bg-gray-900 border border-gray-700 rounded-md px-4 relative">
+                <Building2 className="text-gray-500 w-5 h-5 mr-2" />
+                <select
+                  className="w-full py-3 bg-transparent focus:outline-none text-white appearance-none pr-8 cursor-pointer"
+                  value={department}
+                  onChange={(e) => setDepartment(e.target.value)}
+                  required
+                >
+                  <option
+                    value=""
+                    disabled
+                    className="bg-[#111827] text-gray-400"
+                  >
+                    Select Department
+                  </option>
+                  <option className="bg-[#111827] text-white" value="CSE">
+                    Computer Science
+                  </option>
+                  <option className="bg-[#111827] text-white" value="ECE">
+                    Electronics & Communication
+                  </option>
+                  <option className="bg-[#111827] text-white" value="EEE">
+                    Electrical Engineering
+                  </option>
+                  <option className="bg-[#111827] text-white" value="MECH">
+                    Mechanical Engineering
+                  </option>
+                  <option className="bg-[#111827] text-white" value="CIVIL">
+                    Civil Engineering
+                  </option>
+                </select>
+                {/* Custom caret icon */}
+                <ChevronDown
+                  className="absolute right-3 text-gray-400 pointer-events-none"
+                  size={18}
+                />
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <button className="w-full bg-blue-600 py-3 rounded-md font-medium hover:bg-blue-700 transition duration-300 shadow-md">
               Log In
             </button>
           </form>
 
+          {/* Extra Links */}
           <div className="flex justify-between items-center mt-6 text-sm text-gray-400">
-            <a href="/forgot-password" className="hover:text-blue-500">
+            <a
+              href="/forgot-password"
+              className="hover:text-blue-500 transition"
+            >
               Forgot your password?
             </a>
             <p>

@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { User, Mail, Lock, Phone } from "lucide-react";
 import { Link, useNavigate } from "react-router";
 
-
 const Signup = () => {
   // 🆕 states banaye har input ke liye
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [department, setDepartment] = useState(""); // 🆕 Department state
 
   const navigate = useNavigate();
 
@@ -24,6 +24,7 @@ const Signup = () => {
           email,
           phone,
           password,
+          department, // 🆕 send department also
         }),
       });
 
@@ -106,8 +107,8 @@ const Signup = () => {
               <input
                 type="text"
                 placeholder="Enter your full name"
-                value={fullName} // 🆕 state se bind kiya
-                onChange={(e) => setFullName(e.target.value)} // 🆕 update karna
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
                 className="w-full py-3 bg-transparent focus:outline-none text-white"
               />
             </div>
@@ -117,8 +118,8 @@ const Signup = () => {
               <input
                 type="email"
                 placeholder="Enter your email"
-                value={email} // 🆕
-                onChange={(e) => setEmail(e.target.value)} // 🆕
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full py-3 bg-transparent focus:outline-none text-white"
               />
             </div>
@@ -128,10 +129,44 @@ const Signup = () => {
               <input
                 type="tel"
                 placeholder="Phone number"
-                value={phone} // 🆕
-                onChange={(e) => setPhone(e.target.value)} // 🆕
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
                 className="w-full py-3 bg-transparent focus:outline-none text-white"
               />
+            </div>
+
+            {/* 🆕 Department Dropdown */}
+            <div className="flex items-center bg-gray-900 border border-gray-700 rounded-md px-4">
+              <select
+                value={department}
+                onChange={(e) => setDepartment(e.target.value)}
+                className="w-full py-3 bg-transparent focus:outline-none text-white"
+              >
+                <option value="" disabled className="bg-gray-900 text-gray-400">
+                  Select Department
+                </option>
+                <option value="CSE" className="bg-gray-900 text-white">
+                  CSE
+                </option>
+                <option value="CSDS" className="bg-gray-900 text-white">
+                  CSDS
+                </option>
+                <option value="ECE" className="bg-gray-900 text-white">
+                  ECE
+                </option>
+                <option value="MECHANICAL" className="bg-gray-900 text-white">
+                  MECHANICAL
+                </option>
+                <option value="AIML" className="bg-gray-900 text-white">
+                  AIML
+                </option>
+                <option value="CS(AIML)" className="bg-gray-900 text-white">
+                  CS(AIML)
+                </option>
+                <option value="AIDS" className="bg-gray-900 text-white">
+                  AIDS
+                </option>
+              </select>
             </div>
 
             <div className="flex items-center bg-gray-900 border border-gray-700 rounded-md px-4">
