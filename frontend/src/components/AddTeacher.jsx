@@ -264,7 +264,7 @@ const AddTeacher = () => {
               >
                 {loading ? "Saving..." : "Save Teachers"}
               </button>
-            </div>
+            </div>  
           </div>
         </div>
 

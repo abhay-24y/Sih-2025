@@ -24,6 +24,8 @@ app.use(
 
 //routes
 app.use("/api/user", userRouter);
+app.use("/api/teachers", teachersRoutes);   // 👈 matches your frontend fetch("/api/teachers/save")
+app.use("/api/semester", semesterRoutes);   
 
 // database connection code
 async function main() {
