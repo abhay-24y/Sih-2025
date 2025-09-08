@@ -142,19 +142,19 @@ const Login = () => {
                     Select Department
                   </option>
                   <option className="bg-[#111827] text-white" value="CSE">
-                    Computer Science
+                    CSE
                   </option>
                   <option className="bg-[#111827] text-white" value="ECE">
-                    Electronics & Communication
+                    ECE
                   </option>
-                  <option className="bg-[#111827] text-white" value="EEE">
-                    Electrical Engineering
+                  <option className="bg-[#111827] text-white" value="AIDS">
+                    AIDS
                   </option>
-                  <option className="bg-[#111827] text-white" value="MECH">
-                    Mechanical Engineering
+                  <option className="bg-[#111827] text-white" value="AIML">
+                    AIML
                   </option>
-                  <option className="bg-[#111827] text-white" value="CIVIL">
-                    Civil Engineering
+                  <option className="bg-[#111827] text-white" value="CSDS">
+                    CSDS
                   </option>
                 </select>
                 {/* Custom caret icon */}

@@ -145,26 +145,20 @@ const Signup = () => {
                 <option value="" disabled className="bg-gray-900 text-gray-400">
                   Select Department
                 </option>
-                <option value="CSE" className="bg-gray-900 text-white">
+                <option className="bg-[#111827] text-white" value="CSE">
                   CSE
                 </option>
-                <option value="CSDS" className="bg-gray-900 text-white">
-                  CSDS
-                </option>
-                <option value="ECE" className="bg-gray-900 text-white">
+                <option className="bg-[#111827] text-white" value="ECE">
                   ECE
                 </option>
-                <option value="MECHANICAL" className="bg-gray-900 text-white">
-                  MECHANICAL
+                <option className="bg-[#111827] text-white" value="AIDS">
+                  AIDS
                 </option>
-                <option value="AIML" className="bg-gray-900 text-white">
+                <option className="bg-[#111827] text-white" value="AIML">
                   AIML
                 </option>
-                <option value="CS(AIML)" className="bg-gray-900 text-white">
-                  CS(AIML)
-                </option>
-                <option value="AIDS" className="bg-gray-900 text-white">
-                  AIDS
+                <option className="bg-[#111827] text-white" value="CSDS">
+                  CSDS
                 </option>
               </select>
             </div>
