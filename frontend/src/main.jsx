@@ -11,7 +11,7 @@ import Timetable from "./components/Dashboard.jsx";
 import Dashboard from "./components/Dashboard.jsx";
 import AddClassroomLayout from "./components/AddClassroomLayout.jsx";
 import AddTeacherLayout from "./components/AddTeacherLayout.jsx";
-import ShowTeachers from "./components/ShowTeachers.jsx";
+import ShowTeachersLayout from "./components/ShowTeachersLayout.jsx";
 let router = createBrowserRouter([
   {
     path: "/",
@@ -43,7 +43,7 @@ let router = createBrowserRouter([
       },
       {
         path: "showteachers",
-        element: <ShowTeachers />,
+        element: <ShowTeachersLayout />,
       },
     ],
   },
