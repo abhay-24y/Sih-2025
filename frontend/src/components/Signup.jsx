@@ -14,7 +14,7 @@ const Signup = () => {
 
   // 🆕 handleSignup function banaya
   async function handleSignup(e) {
-    e.preventDefault(); // form reload na ho
+    e.preventDefault();
     try {
       const res = await fetch("http://localhost:3000/api/user/signup", {
         method: "POST",
@@ -32,7 +32,7 @@ const Signup = () => {
 
       if (res.ok) {
         alert(data.message); // success msg from backend
-        navigate("/login"); // redirect to landing page
+        navigate("/login"); // redirect to login page
       } else {
         alert(data.error || data.message || "Signup failed"); // error msg properly
       }

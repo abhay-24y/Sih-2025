@@ -19,6 +19,11 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
         select: false
+    },
+    department: {
+        type: String,
+        required: true,
+        select: false
     }
 });
 
