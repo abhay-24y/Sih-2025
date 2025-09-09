@@ -1,4 +1,4 @@
-const SemesterTeacher = require("../models/semester.model");
+import SemesterTeacher from "../models/semester.model.js";
 
 /**
  * UI -> POST /api/teachers/save
@@ -12,7 +12,7 @@ const SemesterTeacher = require("../models/semester.model");
  * }
  * Converts to DB shape and upserts.
  */
-exports.saveFromFlatTeachers = async (req, res) => {
+export const saveFromFlatTeachers = async (req, res) => {
   try {
     let { semester, teachers } = req.body;
 
@@ -77,7 +77,7 @@ exports.saveFromFlatTeachers = async (req, res) => {
 };
 
 // Optional: GET all semesters
-exports.getAllSemesters = async (req, res) => {
+export const getAllSemesters = async (req, res) => {
   try {
     const data = await SemesterTeacher.find();
     res.json({ success: true, data });
@@ -87,7 +87,7 @@ exports.getAllSemesters = async (req, res) => {
 };
 
 // Optional: GET single semester by number (e.g., /api/semester/5)
-exports.getSemesterById = async (req, res) => {
+export const getSemesterById = async (req, res) => {
   try {
     const sem = String(req.params.semester || "");
     const data = await SemesterTeacher.findOne({ semester: sem });

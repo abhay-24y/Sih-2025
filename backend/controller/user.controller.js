@@ -20,20 +20,22 @@ const signupSchema = z.object({
         )
     },
         { message: "Password must be 8+ chars, with upper, lower, number & special char." }
-    )
+    ),
+    department: z.string()
 })
 
 const loginSchema = z.object({
     email: z.string().email().min(10).max(30),
-    password: z.string()
+    password: z.string(),
+    department: z.string()
 })
 
 
 // endpoints 
 export const register = async (req, res) => {
     try {
-        const { username, email, phone, password } = req.body;
-        if (!email || !username || !phone|| !password) {
+        const { username, email, phone, password, department } = req.body;
+        if (!email || !username || !phone|| !password || !department) {
             return res.status(403).json({ message: "All fields are required" });
         }
 
@@ -42,13 +44,13 @@ export const register = async (req, res) => {
             return res.status(403).json({ error: parsed.error.issues[0].message });
         }
 
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ department });
         if (user) {
-            return res.status(403).json({ message: "user already registered." });
+            return res.status(403).json({ message: `an admin from ${department} department is already existing.` });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = await User.create({ username, email, phone, password: hashedPassword });
+        const newUser = await User.create({ username, email, phone, password: hashedPassword, department });
 
         const token = await jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET_KEY, { expiresIn: "1d" });
         res.cookie("jwt", token, {
@@ -67,8 +69,8 @@ export const register = async (req, res) => {
 
 
 export const login = async (req, res) => {
-    const { email, password } = req.body;
-    if (!email || !password) {
+    const { email, password, department } = req.body;
+    if (!email || !password || !department) {
         return res.status(400).json({ error: "All fields are required" });
     }
 
@@ -78,9 +80,9 @@ export const login = async (req, res) => {
     }
 
     try {
-        const user = await User.findOne({ email }).select("+password");
+        const user = await User.findOne({ email, department }).select("+password");
         if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(400).json({ message: "Invalid email or password" });
+            return res.status(400).json({ message: "Invalid email, department or password" });
         }
 
         const token = await jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: "1d" });

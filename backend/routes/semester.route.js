@@ -1,12 +1,12 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   getAllSemesters,
   getSemesterById,
-} = require("../controller/semester.controller");
+} from "../controller/semester.controller.js";
 
 const router = express.Router();
 
 router.get("/", getAllSemesters);
 router.get("/:semester", getSemesterById);
 
-module.exports = router;
+export default router;
