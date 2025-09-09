@@ -77,7 +77,7 @@ const AddTeacher = () => {
     const payload = { semester, teachers: teachersByCategory };
     setLoading(true);
     try {
-      const res = await fetch("/api/teachers/save", {
+      const res = await fetch("http://localhost:3000/api/teachers/save", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

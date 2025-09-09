@@ -33,7 +33,7 @@ const Login = () => {
 
       if (res.ok) {
         alert("Login successfully");
-        navigate("/");
+        navigate("/timetable");
       } else {
         alert(data.error || data.message || "Login failed");
       }
